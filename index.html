@@ -49,8 +49,9 @@
     <section>
       <h2>My [Constructor] interface</h2>
       <pre class="idl">
-      [Exposed=Window, Constructor]
+      [Exposed=Window]
       interface IHaveConstructor {
+        constructor();
         attribute DOMString bar;
         void doTheFoo();
       };
@@ -59,7 +60,7 @@
     <section>
       <h2>My Implicitly Exposed interface</h2>
       <pre class="idl">
-      interface ImplicitlyExposed {
+      [Exposed=Window] interface ImplicitlyExposed {
         attribute DOMString bar;
         void doTheFoo();
       };
@@ -68,7 +69,7 @@
     <section>
       <h2>My Implicitly Exposed interface</h2>
       <pre class="idl">
-      interface ImplicitlyExposed {
+      [Exposed=Window] interface ImplicitlyExposed {
         attribute DOMString bar;
         void doTheFoo();
       };
@@ -80,7 +81,7 @@
       dictionary MyDictionary {
         DOMString myField;
       };
-      interface IUseTheDictionary {
+      [Exposed=Window] interface IUseTheDictionary {
         void doTheFoo(MyDictionary dict);
       };
       </pre>
@@ -101,9 +102,10 @@
       dictionary MyDictionary {
         DOMString myField;
       };
-      [Constructor]
+      [Exposed=Window]
       interface YayImWrong {
-        void doTheFoo(optional MyDictionary dict);
+        constructor();
+        void doTheFoo(optional MyDictionary dict = {});
       };
       </pre>
     </section>
