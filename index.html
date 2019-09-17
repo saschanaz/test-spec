@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset='utf-8'>
-    <title>Replace me with a real title</title>
+    <title>My Test Specification</title>
     <script type="text/javascript" src='https://www.w3.org/Tools/respec/respec-w3c-common' class='remove' async></script>
     <script class='remove'>
       var respecConfig = {
@@ -18,21 +18,92 @@
   <body>
     <section id='abstract'>
       <p>
-        This is required.
+        We'll see some wrong IDL here and their validation results and then the autofix feature.
       </p>
     </section>
-    <section id='sotd'>
-      <p>
-        This is required.
-      </p>
-    </section>
-    <section data-dfn-for="Foo">
-      <h2><dfn>Foo</dfn> interface</h2>
+    <section id='sotd'></section>
+    <section>
+      <h2>No Duplication</h2>
       <pre class="idl">
-      [Constructor]
-      interface Foo {
+      [Exposed=Window]
+      interface Duplicated {
         attribute DOMString bar;
         void doTheFoo();
+      };
+      dictionary Duplicated {};
+      </pre>
+    </section>
+    <section>
+      <h2>No Cross Overload, I'm looking at you WebGL</h2>
+      <pre class="idl">
+      [Exposed=Window]
+      interface BaseInterface {
+        void doTheFoo();
+      };
+      interface mixin MyMixin {
+        void doTheFoo(DOMString foo);
+      };
+      BaseInterface includes MyMixin;
+      </pre>
+    </section>
+    <section>
+      <h2>My [Constructor] interface</h2>
+      <pre class="idl">
+      [Exposed=Window, Constructor]
+      interface IHaveConstructor {
+        attribute DOMString bar;
+        void doTheFoo();
+      };
+      </pre>
+    </section>
+    <section>
+      <h2>My Implicitly Exposed interface</h2>
+      <pre class="idl">
+      interface ImplicitlyExposed {
+        attribute DOMString bar;
+        void doTheFoo();
+      };
+      </pre>
+    </section>
+    <section>
+      <h2>My Implicitly Exposed interface</h2>
+      <pre class="idl">
+      interface ImplicitlyExposed {
+        attribute DOMString bar;
+        void doTheFoo();
+      };
+      </pre>
+    </section>
+    <section>
+      <h2>My interface with optional dictionary argument</h2>
+      <pre class="idl">
+      dictionary MyDictionary {
+        DOMString myField;
+      };
+      interface IUseTheDictionary {
+        void doTheFoo(MyDictionary dict);
+      };
+      </pre>
+    </section>
+    <section>
+      <h2>My interface with incorrect nullable union</h2>
+      <pre class="idl">
+      typedef (MyDictionary or DOMString) MyUnion;
+      [Exposed=Window]
+      interface IAlsoUseTheDictionary {
+        void doTheFoo(optional MyUnion? dict);
+      };
+      </pre>
+    </section>
+    <section>
+      <h2>Totally Wrong</h2>
+      <pre class="idl">
+      dictionary MyDictionary {
+        DOMString myField;
+      };
+      [Constructor]
+      interface YayImWrong {
+        void doTheFoo(optional MyDictionary dict);
       };
       </pre>
     </section>
