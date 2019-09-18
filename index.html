@@ -66,15 +66,6 @@
       </pre>
     </section>
     <section>
-      <h2>My Implicitly Exposed interface</h2>
-      <pre class="idl">
-      interface ImplicitlyExposed {
-        attribute DOMString bar;
-        void doTheFoo();
-      };
-      </pre>
-    </section>
-    <section>
       <h2>My interface with optional dictionary argument</h2>
       <pre class="idl">
       dictionary MyDictionary {
@@ -92,18 +83,6 @@
       [Exposed=Window]
       interface IAlsoUseTheDictionary {
         void doTheFoo(optional MyUnion? dict);
-      };
-      </pre>
-    </section>
-    <section>
-      <h2>Totally Wrong</h2>
-      <pre class="idl">
-      dictionary MyDictionary {
-        DOMString myField;
-      };
-      [Constructor]
-      interface YayImWrong {
-        void doTheFoo(optional MyDictionary dict);
       };
       </pre>
     </section>
