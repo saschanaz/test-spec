@@ -49,8 +49,9 @@
     <section>
       <h2>My [Constructor] interface</h2>
       <pre class="idl">
-      [Exposed=Window, Constructor] // cause merge conflict
+      [Exposed=Window]
       interface IHaveConstructor {
+        constructor();
         attribute DOMString bar;
         void doTheFoo();
       };
@@ -59,7 +60,7 @@
     <section>
       <h2>My Implicitly Exposed interface</h2>
       <pre class="idl">
-      interface ImplicitlyExposed {
+      [Exposed=Window] interface ImplicitlyExposed {
         attribute DOMString bar;
         void doTheFoo();
       };
@@ -71,7 +72,7 @@
       dictionary MyDictionary {
         DOMString myField;
       };
-      interface IUseTheDictionary {
+      [Exposed=Window] interface IUseTheDictionary {
         void doTheFoo(MyDictionary dict);
       };
       </pre>
