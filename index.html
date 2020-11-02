@@ -18,7 +18,7 @@
   <body>
     <section id='abstract'>
       <p>
-        We'll see some wrong IDL here and their validation results and then the autofix feature. Mergeable Change 3
+        We'll see some wrong IDL here and their validation results and then the autofix feature. Mergeable Change
       </p>
     </section>
     <section id='sotd'></section>
@@ -28,7 +28,7 @@
       [Exposed=Window]
       interface Duplicated {
         attribute DOMString bar;
-        void doTheFoo();
+        undefined doTheFoo();
       };
       dictionary Duplicated {};
       </pre>
@@ -38,10 +38,10 @@
       <pre class="idl">
       [Exposed=Window]
       interface BaseInterface {
-        void doTheFoo();
+        undefined doTheFoo();
       };
       interface mixin MyMixin {
-        void doTheFoo(DOMString foo);
+        undefined doTheFoo(DOMString foo);
       };
       BaseInterface includes MyMixin;
       </pre>
@@ -49,19 +49,21 @@
     <section>
       <h2>My [Constructor] interface</h2>
       <pre class="idl">
-      [Exposed=Window, Constructor] // cause merge conflict 7
+      [Exposed=Window] // cause merge conflict 7
       interface IHaveConstructor {
+        constructor();
         attribute DOMString bar;
-        void doTheFoo();
+        undefined doTheFoo();
       };
       </pre>
     </section>
     <section>
       <h2>My Implicitly Exposed interface</h2>
       <pre class="idl">
+      [Exposed=Window]
       interface ImplicitlyExposed {
         attribute DOMString bar;
-        void doTheFoo();
+        undefined doTheFoo();
       };
       </pre>
     </section>
@@ -71,8 +73,9 @@
       dictionary MyDictionary {
         DOMString myField;
       };
+      [Exposed=Window]
       interface IUseTheDictionary {
-        void doTheFoo(MyDictionary dict);
+        undefined doTheFoo(optional MyDictionary dict = {});
       };
       </pre>
     </section>
@@ -82,7 +85,7 @@
       typedef (MyDictionary or DOMString) MyUnion;
       [Exposed=Window]
       interface IAlsoUseTheDictionary {
-        void doTheFoo(optional MyUnion? dict);
+        undefined doTheFoo(optional MyUnion? dict);
       };
       </pre>
     </section>
